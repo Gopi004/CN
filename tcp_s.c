@@ -11,9 +11,9 @@ int main(){
     char buffer[1024];
 
     sockfd=socket(AF_INET,SOCK_STREAM,0);
-    sockfd.sin_family=AF_INET;
-    sockfd.sin_addr.s_addr=INADDR_ANY;
-    sockfd.sin_port=htons(8080);
+    server.sin_family=AF_INET;
+    server.sin_addr.s_addr=INADDR_ANY;
+    server.sin_port=htons(8080);
 
     bind(sockfd,(struct sockaddr *)&server, sizeof(server));
     listen(sockfd,5);
