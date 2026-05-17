@@ -20,7 +20,8 @@ int main(){
 
     newsock=accept(sockfd,(struct sockaddr *)&client,&len);
 
-    read(newsock,filename,sizeof(filename));
+    int n=read(newsock,filename,sizeof(filename));
+    filename[n]='\0';
     
     fp=fopen(filename,"r");
     if(fp==NULL){
@@ -30,7 +31,7 @@ int main(){
         while(fgets(buffer,sizeof(buffer),fp)!=NULL){
             send(newsock,buffer,strlen(buffer),0);
         }
-        fclose(filename);
+        fclose(fp);
     }
     close(newsock);
     close(sockfd);

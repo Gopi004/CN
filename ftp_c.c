@@ -7,6 +7,7 @@ int main(){
     int sockfd;
     struct sockaddr_in server;
     char filename[1024],buffer[1024]={0};
+    int n;
 
     sockfd=socket(AF_INET,SOCK_STREAM,0);
     server.sin_family=AF_INET;
@@ -16,15 +17,16 @@ int main(){
     connect(sockfd,(struct sockaddr *)&server,sizeof(server));
 
     printf("Enter the filename: ");
-    scanf("%s",&filename);
+    scanf("%s",filename);
 
     send(sockfd,filename,strlen(filename),0);
 
     printf("File contents:\n");
-    while(read(sockfd,buffer,sizeof(buffer))>0){
+    while((n=read(sockfd,buffer,sizeof(buffer)))>0){
+        buffer[n]='\0';
         printf("%s",buffer);
-        memset(buffer,0,sizeof(buffer));
     }
+    printf("\n");
     close(sockfd);
     return 0;
 }
